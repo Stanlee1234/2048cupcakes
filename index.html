@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>2048 Cupcakes - A Delicious Puzzle Game</title>
+  <meta name="description" content="Slide and merge sweet cupcakes in this cute, interactive version of the 2048 puzzle game. Play 3x3, 4x4, or 5x5 grids, unlock tasty recipes, and set high scores!">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Floating Background Decorative Elements -->
+  <div class="bg-decor bg-decor-1">🧁</div>
+  <div class="bg-decor bg-decor-2">🍒</div>
+  <div class="bg-decor bg-decor-3">✨</div>
+  <div class="bg-decor bg-decor-4">🍓</div>
+
+  <!-- Particle Container for Sprinkles Burst -->
+  <div id="particle-container" class="particle-container"></div>
+
+  <!-- Main Game Container -->
+  <div class="app-container">
+    <!-- Game Header -->
+    <header class="game-header">
+      <div class="title-container">
+        <h1 id="game-title">2048 <span class="accent-text">Cupcakes</span></h1>
+        <p class="subtitle">Bake the ultimate sweet treat!</p>
+      </div>
+
+      <!-- Stats Panel -->
+      <div class="stats-panel">
+        <div class="stat-box" id="current-score-box">
+          <span class="stat-label">SCORE</span>
+          <span id="score" class="stat-value">0</span>
+          <div id="score-addition" class="score-addition">+0</div>
+        </div>
+        <div class="stat-box" id="high-score-box">
+          <span class="stat-label">BEST</span>
+          <span id="high-score" class="stat-value">0</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Toolbar Controls -->
+    <div class="toolbar">
+      <div class="button-group">
+        <button id="btn-recipe-book" class="icon-button" title="Recipe Book / Cupcake Gallery" aria-label="Open Recipe Book">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+        </button>
+        <button id="btn-sound-toggle" class="icon-button" title="Mute/Unmute Sounds" aria-label="Toggle Sound">
+          <svg id="sound-icon-on" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <svg id="sound-icon-off" class="icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        </button>
+        <button id="restart" class="action-button" title="Restart Game">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+          </svg>
+          <span>Restart</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Game Board Container -->
+    <main class="game-area">
+      <div id="grid-container" class="grid-container size-4" role="grid" aria-label="Cupcake Grid">
+        <!-- Background Grid Slots (rendered by JavaScript depending on N) -->
+        <div id="grid-background" class="grid-background"></div>
+        <!-- Active Cupcake Tiles (rendered dynamically with absolute positioning) -->
+        <div id="tile-container" class="tile-container"></div>
+      </div>
+    </main>
+
+    <!-- Footer Controls and Info -->
+    <footer class="game-footer">
+      <p>Use your <strong>Arrow Keys</strong>, <strong>WASD</strong>, or <strong>Swipe</strong> to merge cupcakes!</p>
+      <p class="copyright">Crafted with love for sweet puzzle lovers 🧁</p>
+    </footer>
+  </div>
+
+  <!-- Modal 1: Intro / Rules overlay -->
+  <div id="modal-intro" class="modal-overlay active" role="dialog" aria-labelledby="intro-title" aria-modal="true">
+    <div class="modal-content text-center scale-up">
+      <div class="modal-header">
+        <h2 id="intro-title" class="fancy-title">Welcome to 2048 Cupcakes! 🧁</h2>
+      </div>
+      <div class="modal-body">
+        <p class="intro-description">
+          Combine similar delicious cupcakes to discover even tastier recipes. Can you reach the legendary <strong>Rainbow Sparkle Cupcake</strong>?
+        </p>
+        <div class="rules-box">
+          <h3>Baking Rules:</h3>
+          <ul>
+            <li>Swipe or use keys to slide all cupcakes in a direction.</li>
+            <li>When two cupcakes of the **same flavor** meet, they merge into the next tier cupcake!</li>
+            <li>Every merge increases your score and unlocks new recipes.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-start-game" class="btn btn-primary large-btn">Start Baking!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Recipe Book / Cupcake Gallery -->
+  <div id="modal-recipe-book" class="modal-overlay" role="dialog" aria-labelledby="recipe-title" aria-modal="true">
+    <div class="modal-content gallery-content">
+      <div class="modal-header">
+        <h2 id="recipe-title" class="fancy-title">Cupcake Recipe Collection 📖</h2>
+        <button id="btn-close-recipes" class="close-button" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="gallery-subtitle">Unlock cupcakes by merging them in-game! See your collection below:</p>
+        <div id="recipe-gallery" class="recipe-grid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-close-recipes-bottom" class="btn btn-secondary">Close Book</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Game Over Overlay -->
+  <div id="modal-game-over" class="modal-overlay" role="dialog" aria-labelledby="game-over-title" aria-modal="true">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <h2 id="game-over-title" class="fail-title">No More Baking Space! 😭</h2>
+      </div>
+      <div class="modal-body">
+        <div class="fail-icon">🧁🔥</div>
+        <p>The kitchen is full! You couldn't merge any more cupcakes.</p>
+        <div class="final-score-display">
+          <div>Final Score: <strong id="game-over-score">0</strong></div>
+          <div class="high-score-notify hidden" id="game-over-new-high">🎉 New High Score! 🎉</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-restart-game-over" class="btn btn-primary large-btn">Try Again</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 4: Game Won Overlay -->
+  <div id="modal-game-won" class="modal-overlay" role="dialog" aria-labelledby="game-won-title" aria-modal="true">
+    <div class="modal-content text-center success-content">
+      <div class="modal-header">
+        <h2 id="game-won-title" class="success-title">Legendary Baker! 🏆</h2>
+      </div>
+      <div class="modal-body">
+        <div class="success-icon">🌈🧁✨</div>
+        <p>Congratulations! You baked the ultimate <strong>Rainbow Sparkle Cupcake (2048)</strong>!</p>
+        <div class="final-score-display">
+          <div>Your Score: <strong id="game-won-score">0</strong></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-keep-playing" class="btn btn-secondary">Keep Baking</button>
+        <button id="btn-restart-game-won" class="btn btn-primary">Bake Again</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
