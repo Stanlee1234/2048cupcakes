@@ -1,4 +1,4 @@
-// Cupcake definitions with emojis, names, and descriptions
+
 const CUPCAKES = {
   2: { emoji: '🧁', name: 'Vanilla Spark', desc: 'A simple vanilla sponge with white frosting.' },
   4: { emoji: '🌸', name: 'Bubblegum Pink', desc: 'Sweet pink frosting with tiny star sprinkles.' },
@@ -14,7 +14,7 @@ const CUPCAKES = {
   4096: { emoji: '🌌', name: 'Cosmic Galaxy', desc: 'Stunning space-colored glaze with edible glitter.' }
 };
 
-// Web Audio API Synthesizer Sound Engine
+
 class SoundEngine {
   constructor() {
     this.ctx = null;
@@ -40,14 +40,14 @@ class SoundEngine {
     if (this.muted) return;
     this.init();
     
-    // Create nodes
+    
     const osc = this.ctx.createOscillator();
     const gain = this.ctx.createGain();
     
     osc.type = type;
     osc.frequency.setValueAtTime(freq, startTime);
     
-    // Envelope (Attack Decay Sustain Release)
+    
     gain.gain.setValueAtTime(volume, startTime);
     gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
     
@@ -85,10 +85,10 @@ class SoundEngine {
     this.init();
     const now = this.ctx.currentTime;
     
-    // Play a sweet two-note arpeggio chord (E4 -> G4 -> C5)
-    this.playTone(329.63, now, 0.08, 'sine', 0.08); // E4
-    this.playTone(392.00, now + 0.04, 0.08, 'sine', 0.08); // G4
-    this.playTone(523.25, now + 0.08, 0.15, 'sine', 0.08); // C5
+    
+    this.playTone(329.63, now, 0.08, 'sine', 0.08); 
+    this.playTone(392.00, now + 0.04, 0.08, 'sine', 0.08); 
+    this.playTone(523.25, now + 0.08, 0.15, 'sine', 0.08); 
   }
 
   playGameOver() {
@@ -96,10 +96,10 @@ class SoundEngine {
     this.init();
     const now = this.ctx.currentTime;
     
-    // Melancholic descending tone arpeggio
-    this.playTone(349.23, now, 0.2, 'triangle', 0.1); // F4
-    this.playTone(293.66, now + 0.15, 0.25, 'triangle', 0.1); // D4
-    this.playTone(220.00, now + 0.3, 0.4, 'triangle', 0.1); // A3
+    
+    this.playTone(349.23, now, 0.2, 'triangle', 0.1); 
+    this.playTone(293.66, now + 0.15, 0.25, 'triangle', 0.1); 
+    this.playTone(220.00, now + 0.3, 0.4, 'triangle', 0.1); 
   }
 
   playWin() {
@@ -107,18 +107,18 @@ class SoundEngine {
     this.init();
     const now = this.ctx.currentTime;
     
-    // Joyful, sparkling victory chime
-    this.playTone(261.63, now, 0.12, 'sine', 0.08); // C4
-    this.playTone(329.63, now + 0.06, 0.12, 'sine', 0.08); // E4
-    this.playTone(392.00, now + 0.12, 0.12, 'sine', 0.08); // G4
-    this.playTone(523.25, now + 0.18, 0.18, 'sine', 0.1); // C5
-    this.playTone(659.25, now + 0.24, 0.35, 'sine', 0.1); // E5
+    
+    this.playTone(261.63, now, 0.12, 'sine', 0.08); 
+    this.playTone(329.63, now + 0.06, 0.12, 'sine', 0.08); 
+    this.playTone(392.00, now + 0.12, 0.12, 'sine', 0.08); 
+    this.playTone(523.25, now + 0.18, 0.18, 'sine', 0.1); 
+    this.playTone(659.25, now + 0.24, 0.35, 'sine', 0.1); 
   }
 }
 
 const sound = new SoundEngine();
 
-// Represents an active Cupcake Tile on the grid
+
 class Tile {
   constructor(row, col, value, container) {
     this.row = row;
@@ -127,7 +127,7 @@ class Tile {
     this.container = container;
     this.id = Tile.nextId++;
     
-    // Create elements
+    
     this.element = this.createElement();
   }
 
@@ -166,17 +166,17 @@ class Tile {
     this.element.dataset.value = newValue;
     this.updateContent(this.element);
     
-    // Refresh animations
+    
     this.element.classList.remove('tile-new');
     this.element.classList.remove('tile-merged');
-    void this.element.offsetWidth; // force redraw
+    void this.element.offsetWidth; 
     this.element.classList.add('tile-merged');
   }
 
   destroy() {
     this.element.classList.remove('tile-new');
     this.element.classList.remove('tile-merged');
-    // Remove element after slide transition finishes (130ms)
+    
     setTimeout(() => {
       this.element.remove();
     }, 130);
@@ -184,7 +184,7 @@ class Tile {
 }
 Tile.nextId = 0;
 
-// Main Game Controller
+
 class GameManager {
   constructor() {
     this.gridContainer = document.getElementById('grid-container');
@@ -208,14 +208,14 @@ class GameManager {
   }
 
   loadState() {
-    // Unlocked list
+    
     try {
       this.unlocked = JSON.parse(localStorage.getItem('cupcakes_unlocked')) || [2];
     } catch {
       this.unlocked = [2];
     }
     
-    // Synced initial mute state
+    
     this.updateSoundToggleUI();
   }
 
@@ -232,7 +232,7 @@ class GameManager {
     localStorage.setItem('cupcakes_unlocked', JSON.stringify(this.unlocked));
   }
 
-  // Draw background helper squares
+  
   drawBackgroundGrid() {
     const bg = document.getElementById('grid-background');
     bg.innerHTML = '';
@@ -244,30 +244,30 @@ class GameManager {
   }
 
   setupUI() {
-    // Sound Button
+    
     document.getElementById('btn-sound-toggle').addEventListener('click', () => {
       const muted = sound.toggle();
       this.updateSoundToggleUI();
-      sound.init(); // initialize on click
+      sound.init(); 
     });
 
-    // Toolbar Resets and Modals
+    
     document.getElementById('restart').addEventListener('click', () => this.startGame());
     
 
-    // Intro Play Button
+    
     document.getElementById('btn-start-game').addEventListener('click', () => {
       sound.init();
       document.getElementById('modal-intro').classList.remove('active');
       this.startGame();
     });
 
-    // Recipes Modal
+    
     document.getElementById('btn-recipe-book').addEventListener('click', () => this.openRecipes());
     document.getElementById('btn-close-recipes').addEventListener('click', () => this.closeRecipes());
     document.getElementById('btn-close-recipes-bottom').addEventListener('click', () => this.closeRecipes());
 
-    // Game Over / Win Buttons
+    
     document.getElementById('btn-restart-game-over').addEventListener('click', () => {
       document.getElementById('modal-game-over').classList.remove('active');
       this.startGame();
@@ -299,7 +299,7 @@ class GameManager {
     const gallery = document.getElementById('recipe-gallery');
     gallery.innerHTML = '';
     
-    // Load recipe book display
+    
     Object.keys(CUPCAKES).forEach((val) => {
       const value = parseInt(val);
       const isUnlocked = this.unlocked.includes(value);
@@ -334,9 +334,9 @@ class GameManager {
   }
 
   setupInput() {
-    // Keyboard listener
+    
     document.addEventListener('keydown', (e) => {
-      if (document.querySelector('.modal-overlay.active')) return; // ignore during modals
+      if (document.querySelector('.modal-overlay.active')) return; 
       
       let direction = null;
       switch (e.key) {
@@ -368,7 +368,7 @@ class GameManager {
       }
     });
 
-    // Touch Swipe detector
+    
     let touchStartX = 0;
     let touchStartY = 0;
     
@@ -387,7 +387,7 @@ class GameManager {
       const absDx = Math.abs(dx);
       const absDy = Math.abs(dy);
       
-      // Threshold 35px
+      
       if (Math.max(absDx, absDy) > 35) {
         let direction = null;
         if (absDx > absDy) {
@@ -405,7 +405,7 @@ class GameManager {
   }
 
   startGame() {
-    // Clear old items
+    
     this.tileContainer.innerHTML = '';
     this.score = 0;
     this.scoreElement.textContent = 0;
@@ -413,15 +413,15 @@ class GameManager {
     this.keepPlaying = false;
     this.isTransitioning = false;
     
-    // Set grid sizes CSS variables & background cells
+    
     this.gridContainer.className = `grid-container size-${this.size}`;
     this.drawBackgroundGrid();
     this.loadHighScore();
     
-    // Init empty grid board mapping
+    
     this.grid = Array.from({ length: this.size }, () => Array(this.size).fill(null));
     
-    // Spawn 2 cupcakes initially
+    
     this.addRandomCupcake();
     this.addRandomCupcake();
   }
@@ -438,10 +438,10 @@ class GameManager {
     
     if (emptyCells.length === 0) return;
     
-    // Random position
+    
     const { r, c } = emptyCells[Math.floor(Math.random() * emptyCells.length)];
     
-    // 90% chance of 2, 10% chance of 4
+    
     const value = Math.random() < 0.9 ? 2 : 4;
     
     const tile = new Tile(r, c, value, this.tileContainer);
@@ -457,23 +457,23 @@ class GameManager {
     }
   }
 
-  // Confetti/Sprinkles burst emission around a cell coordinates
+  
   spawnSprinkles(row, col) {
     const container = document.getElementById('particle-container');
     if (!container) return;
     
     const rect = this.gridContainer.getBoundingClientRect();
     
-    // Compute cell dimensions
-    const gap = 12; // matching style.css --gap
+    
+    const gap = 12; 
     const gridInnerWidth = rect.width - gap * 2;
     const cellWidth = (gridInnerWidth - (this.size - 1) * gap) / this.size;
     
-    // Relative position
+    
     const relX = col * (cellWidth + gap) + cellWidth / 2 + gap;
     const relY = row * (cellWidth + gap) + cellWidth / 2 + gap;
     
-    // Absolute position on viewport
+    
     const x = rect.left + relX;
     const y = rect.top + relY;
     
@@ -503,7 +503,7 @@ class GameManager {
     }
   }
 
-  // Core movement solvers
+  
   handleMove(direction) {
     if (this.isTransitioning) return;
     
@@ -513,10 +513,10 @@ class GameManager {
     let moved = false;
     let scoreGained = 0;
     
-    // Clear merge flags
+    
     this.prepareTiles();
     
-    // Traverse cell slots
+    
     traversals.row.forEach((r) => {
       traversals.col.forEach((c) => {
         const tile = this.grid[r][c];
@@ -525,39 +525,39 @@ class GameManager {
           const nextTile = this.grid[positions.next.r]?.[positions.next.c];
           
           if (nextTile && nextTile.value === tile.value && !nextTile.mergedFrom) {
-            // MERGE
+            
             const mergedValue = tile.value * 2;
             
-            // Move current tile to overlay the merge target
+            
             tile.moveTo(positions.next.r, positions.next.c);
             tile.destroy();
             
-            // Update target value
-            nextTile.setValue(mergedValue);
-            nextTile.mergedFrom = tile; // tag merged
             
-            // Clear current grid cell slot
+            nextTile.setValue(mergedValue);
+            nextTile.mergedFrom = tile; 
+            
+            
             this.grid[r][c] = null;
             
-            // Update score
+            
             scoreGained += mergedValue;
             moved = true;
             
             this.trackUnlock(mergedValue);
             
-            // Sound and effects trigger in setTimeout so they align with slide transition
+            
             setTimeout(() => {
               this.spawnSprinkles(positions.next.r, positions.next.c);
             }, 80);
             
-            // Reached 2048 win checking
+            
             if (mergedValue === 2048 && !this.hasWon && !this.keepPlaying) {
               this.hasWon = true;
               setTimeout(() => this.showWinModal(), 400);
             }
             
           } else {
-            // SLIDE ONLY
+            
             if (positions.farthest.r !== r || positions.farthest.c !== c) {
               this.grid[r][c] = null;
               this.grid[positions.farthest.r][positions.farthest.c] = tile;
@@ -579,7 +579,7 @@ class GameManager {
       
       this.isTransitioning = true;
       
-      // Spawn new random cupcake after transition finishes
+      
       setTimeout(() => {
         this.addRandomCupcake();
         this.isTransitioning = false;
@@ -604,9 +604,9 @@ class GameManager {
       col: Array.from({ length: this.size }, (_, i) => i)
     };
     
-    // Traverse from furthest edge in slide direction
-    if (vector.r === 1) traversals.row.reverse(); // down
-    if (vector.c === 1) traversals.col.reverse(); // right
+    
+    if (vector.r === 1) traversals.row.reverse(); 
+    if (vector.c === 1) traversals.col.reverse(); 
     
     return traversals;
   }
@@ -632,7 +632,7 @@ class GameManager {
     
     return {
       farthest: prev,
-      next: curr // either bounds error or holding obstacle tile
+      next: curr 
     };
   }
 
@@ -644,14 +644,14 @@ class GameManager {
     this.score += gained;
     this.scoreElement.textContent = this.score;
     
-    // Animate score addition float effect
+    
     this.scoreAddition.textContent = `+${gained}`;
     this.scoreAddition.classList.remove('active');
-    void this.scoreAddition.offsetWidth; // trigger reflow
+    void this.scoreAddition.offsetWidth; 
     
-    // Start animation
+    
     this.scoreAddition.style.animation = 'none';
-    void this.scoreAddition.offsetHeight; // trigger reflow
+    void this.scoreAddition.offsetHeight; 
     this.scoreAddition.style.animation = null;
     
     if (this.score > this.highScore) {
@@ -665,9 +665,9 @@ class GameManager {
     for (let r = 0; r < this.size; r++) {
       for (let c = 0; c < this.size; c++) {
         const tile = this.grid[r][c];
-        if (!tile) return true; // empty cell available
+        if (!tile) return true; 
         
-        // Scan right and down neighbors
+        
         if (c < this.size - 1) {
           const right = this.grid[r][c + 1];
           if (!right || right.value === tile.value) return true;
@@ -706,7 +706,7 @@ class GameManager {
   }
 }
 
-// Initialise Game after DOM load
+
 window.addEventListener('DOMContentLoaded', () => {
   new GameManager();
 });

@@ -6,7 +6,7 @@
   <title>2048 Cupcakes - A Delicious Puzzle Game</title>
   <meta name="description" content="Slide and merge sweet cupcakes in this cute, interactive version of the 2048 puzzle game. Play 3x3, 4x4, or 5x5 grids, unlock tasty recipes, and set high scores!">
   
-  <!-- Google Fonts -->
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
@@ -14,25 +14,25 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Floating Background Decorative Elements -->
+  
   <div class="bg-decor bg-decor-1">🧁</div>
   <div class="bg-decor bg-decor-2">🍒</div>
   <div class="bg-decor bg-decor-3">✨</div>
   <div class="bg-decor bg-decor-4">🍓</div>
 
-  <!-- Particle Container for Sprinkles Burst -->
+  
   <div id="particle-container" class="particle-container"></div>
 
-  <!-- Main Game Container -->
+  
   <div class="app-container">
-    <!-- Game Header -->
+    
     <header class="game-header">
       <div class="title-container">
         <h1 id="game-title">2048 <span class="accent-text">Cupcakes</span></h1>
         <p class="subtitle">Bake the ultimate sweet treat!</p>
       </div>
 
-      <!-- Stats Panel -->
+      
       <div class="stats-panel">
         <div class="stat-box" id="current-score-box">
           <span class="stat-label">SCORE</span>
@@ -46,7 +46,7 @@
       </div>
     </header>
 
-    <!-- Toolbar Controls -->
+    
     <div class="toolbar">
       <div class="button-group">
         <button id="btn-recipe-book" class="icon-button" title="Recipe Book / Cupcake Gallery" aria-label="Open Recipe Book">
@@ -75,24 +75,24 @@
       </div>
     </div>
 
-    <!-- Main Game Board Container -->
+    
     <main class="game-area">
       <div id="grid-container" class="grid-container size-4" role="grid" aria-label="Cupcake Grid">
-        <!-- Background Grid Slots (rendered by JavaScript depending on N) -->
+        
         <div id="grid-background" class="grid-background"></div>
-        <!-- Active Cupcake Tiles (rendered dynamically with absolute positioning) -->
+        
         <div id="tile-container" class="tile-container"></div>
       </div>
     </main>
 
-    <!-- Footer Controls and Info -->
+    
     <footer class="game-footer">
       <p>Use your <strong>Arrow Keys</strong>, <strong>WASD</strong>, or <strong>Swipe</strong> to merge cupcakes!</p>
       <p class="copyright">Crafted with love for sweet puzzle lovers 🧁</p>
     </footer>
   </div>
 
-  <!-- Modal 1: Intro / Rules overlay -->
+  
   <div id="modal-intro" class="modal-overlay active" role="dialog" aria-labelledby="intro-title" aria-modal="true">
     <div class="modal-content text-center scale-up">
       <div class="modal-header">
@@ -117,7 +117,7 @@
     </div>
   </div>
 
-  <!-- Modal 2: Recipe Book / Cupcake Gallery -->
+  
   <div id="modal-recipe-book" class="modal-overlay" role="dialog" aria-labelledby="recipe-title" aria-modal="true">
     <div class="modal-content gallery-content">
       <div class="modal-header">
@@ -127,7 +127,7 @@
       <div class="modal-body">
         <p class="gallery-subtitle">Unlock cupcakes by merging them in-game! See your collection below:</p>
         <div id="recipe-gallery" class="recipe-grid">
-          <!-- Populated by JS -->
+          
         </div>
       </div>
       <div class="modal-footer">
@@ -136,7 +136,7 @@
     </div>
   </div>
 
-  <!-- Modal 3: Game Over Overlay -->
+  
   <div id="modal-game-over" class="modal-overlay" role="dialog" aria-labelledby="game-over-title" aria-modal="true">
     <div class="modal-content text-center">
       <div class="modal-header">
@@ -156,7 +156,7 @@
     </div>
   </div>
 
-  <!-- Modal 4: Game Won Overlay -->
+  
   <div id="modal-game-won" class="modal-overlay" role="dialog" aria-labelledby="game-won-title" aria-modal="true">
     <div class="modal-content text-center success-content">
       <div class="modal-header">

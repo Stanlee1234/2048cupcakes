@@ -1,4 +1,4 @@
-/* Design System & Variables */
+
 :root {
   --font-fancy: 'Fredoka', sans-serif;
   --font-sans: 'Quicksand', sans-serif;
@@ -13,13 +13,13 @@
   --color-secondary: #ffb3d8;
   --color-border: #fcd5e5;
   
-  /* Grid settings - will be overridden by javascript classes on the container */
+  
   --grid-size: 4;
   --gap: 12px;
   --tile-radius: 16px;
 }
 
-/* Base Styles */
+
 * {
   margin: 0;
   padding: 0;
@@ -40,7 +40,7 @@ body {
   padding: 16px;
 }
 
-/* Screen reader only utility */
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -52,7 +52,7 @@ body {
   border: 0;
 }
 
-/* Background Decorations */
+
 .bg-decor {
   position: absolute;
   font-size: 3rem;
@@ -72,7 +72,7 @@ body {
   50% { transform: translateY(-20px) rotate(15deg); }
 }
 
-/* Particle sprinkles container */
+
 .particle-container {
   position: fixed;
   top: 0;
@@ -103,7 +103,7 @@ body {
   }
 }
 
-/* App Container Layout */
+
 .app-container {
   width: 100%;
   max-width: 440px;
@@ -113,7 +113,7 @@ body {
   gap: 16px;
 }
 
-/* Game Header styling */
+
 .game-header {
   display: flex;
   justify-content: space-between;
@@ -200,7 +200,7 @@ body {
   100% { transform: translate(-50%, -24px); opacity: 0; }
 }
 
-/* Toolbar & Controls styling */
+
 .toolbar {
   display: flex;
   justify-content: space-between;
@@ -291,7 +291,7 @@ body {
   display: none !important;
 }
 
-/* Game Area and Dynamic Grid Container */
+
 .game-area {
   background: var(--bg-card);
   backdrop-filter: blur(12px);
@@ -316,7 +316,7 @@ body {
   touch-action: none;
 }
 
-/* Specific Grid Sizes Setup */
+
 .grid-container.size-3 {
   --grid-size: 3;
 }
@@ -327,7 +327,7 @@ body {
   --grid-size: 5;
 }
 
-/* Background grid of empty squares */
+
 .grid-background {
   display: grid;
   grid-template-columns: repeat(var(--grid-size), 1fr);
@@ -348,7 +348,7 @@ body {
   border: 1.5px dashed rgba(255, 126, 185, 0.15);
 }
 
-/* Active Tile Styling & Formula Position Placement */
+
 .tile-container {
   position: absolute;
   top: var(--gap);
@@ -375,12 +375,12 @@ body {
   box-shadow: 0 6px 15px rgba(220, 180, 200, 0.15);
   border: 2px solid transparent;
   
-  /* Smooth movements transitions */
+  
   transition: left 0.13s ease-in-out, top 0.13s ease-in-out;
   will-change: left, top;
 }
 
-/* Animating creation and merging */
+
 .tile-new {
   animation: tile-appear 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
@@ -401,7 +401,7 @@ body {
   100% { transform: scale(1); }
 }
 
-/* Cupcake Tile visual styles */
+
 .tile-inner {
   display: flex;
   flex-direction: column;
@@ -432,16 +432,16 @@ body {
   margin-top: 1px;
 }
 
-/* Responsiveness sizes inside cells */
+
 .grid-container.size-3 .tile-emoji { font-size: 2.8rem; }
 .grid-container.size-3 .tile-val { font-size: 1.1rem; }
 .grid-container.size-3 .tile-name { font-size: 0.7rem; }
 
 .grid-container.size-5 .tile-emoji { font-size: 1.6rem; }
 .grid-container.size-5 .tile-val { font-size: 0.75rem; }
-.grid-container.size-5 .tile-name { display: none; } /* hide name on small cells to avoid clutter */
+.grid-container.size-5 .tile-name { display: none; } 
 
-/* Distinct Cupcake Tiers Colors & Visuals */
+
 .tile[data-value="2"] {
   background: linear-gradient(135deg, #fffbf2 0%, #fff0d4 100%);
   border-color: #f7e6ca;
@@ -502,7 +502,7 @@ body {
   box-shadow: 0 0 16px rgba(255, 82, 122, 0.6);
   animation: rainbow-bg 3s linear infinite, tile-pop-glow 1.5s ease-in-out infinite alternate;
 }
-/* For higher values */
+
 .tile[data-value="4096"] {
   background: linear-gradient(135deg, #11001c 0%, #3e1254 100%);
   border-color: #9030c7;
@@ -521,7 +521,7 @@ body {
   100% { box-shadow: 0 0 20px rgba(255, 82, 122, 0.8), 0 0 5px rgba(196, 243, 250, 0.8); }
 }
 
-/* Footer styling */
+
 .game-footer {
   text-align: center;
   color: var(--text-light);
@@ -540,7 +540,7 @@ body {
   margin-top: 6px;
 }
 
-/* Modals Overlay Base */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -565,7 +565,7 @@ body {
   pointer-events: auto;
 }
 
-/* Modal Content Box */
+
 .modal-content {
   background: rgba(255, 255, 255, 0.96);
   border-radius: 28px;
@@ -623,7 +623,7 @@ body {
   margin-bottom: 20px;
   flex-grow: 1;
   padding-right: 4px;
-  /* Scrollbar styling */
+  
   scrollbar-width: thin;
   scrollbar-color: var(--color-secondary) transparent;
 }
@@ -643,7 +643,7 @@ body {
   flex-shrink: 0;
 }
 
-/* Modals Typographics */
+
 .intro-description {
   color: var(--text-light);
   font-size: 0.95rem;
@@ -708,7 +708,7 @@ body {
   border-color: var(--color-border);
 }
 
-/* Button styles */
+
 .btn {
   border: none;
   border-radius: 16px;
@@ -754,7 +754,7 @@ body {
   width: 100%;
 }
 
-/* Recipe Gallery Modal Styling */
+
 .gallery-content {
   max-width: 440px;
 }
@@ -827,7 +827,7 @@ body {
   margin-top: 2px;
 }
 
-/* Game Over / Game Won overlay decorations */
+
 .fail-title {
   color: #e82e86;
   font-family: var(--font-fancy);
@@ -890,7 +890,7 @@ body {
   100% { opacity: 1; }
 }
 
-/* Small Screens Tweaks */
+
 @media (max-width: 380px) {
   body {
     padding: 8px;
